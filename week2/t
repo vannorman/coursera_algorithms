@@ -1,0 +1,27 @@
+pattern = []  
+for i in range(m * m):#? Unsure what's a lower bound for safely finding the repeating pattern 
+	# we don't want to check after every i
+	# what is the optimal checking pattern for the pisano period?
+	# let's assume it's safe to calc every m values
+	pattern.append(calc_fib_pro(i) % m) # add current number to the list
+	if i % m == 0 or i >= m * m - 1:
+
+		# [ 5, 6, 7, 1, 2, 3, 4, 1, 1, 5, 6, 7, 1, 2, 3, 4, 1, 1, 5, 6 ] 
+
+		cont = True
+		for j in range(len(pattern)):
+			# iterate through each number in the pattern. For each number, try to match it with the start of the list.
+			# if pattern[j] thru pattern[2j] matches from start of list pattern[0] through pattern[j-1], success!
+			result = "PASS"
+			cont = True
+			for k in range(j):
+				if not cont: break
+				if pattern[j] is not pattern[k]:
+					# print("pattern broken at:"+str(j)+": "+str(pattern[j])+", "+str(k)+":"+str(pattern[k])) 
+					result = "FAIL"
+					cont = False
+					break
+				else:
+					print('success at:"+str(j)+": "+str(pattern[j])+", "+str(k)+":"+str(pattern[k])) 
+		print(result)
+
